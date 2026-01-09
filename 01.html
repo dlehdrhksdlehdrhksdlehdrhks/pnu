@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10대 무면허 운전 사고 통계 리포트 (2020-2024)</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #F3F4F6; /* Light gray background */
+            color: #1F2937; /* Gray 800 */
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            margin: auto;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-danger {
+            color: #DC2626; /* Red 600 */
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background-color: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            font-weight: 700;
+            color: #374151;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .home-btn:hover {
+            background-color: #F9FAFB;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .accent-gradient {
+            background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 pt-20">
+
+    <!-- Home Button -->
+    <a href="index.html" class="home-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+        </svg>
+        <span>홈으로</span>
+    </a>
+
+    <div class="max-w-6xl mx-auto space-y-10">
+
+        <!-- Header Section -->
+        <header class="text-center space-y-4">
+            <div class="inline-block px-4 py-1 rounded-full bg-red-100 text-red-600 text-sm font-bold tracking-widest uppercase mb-2">
+                사회 안전 보고서
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black text-gray-900 leading-tight">
+                도로 위 시한폭탄: <br>
+                <span class="accent-gradient">10대 무면허 운전 사고 실태</span>
+            </h1>
+            <p class="text-gray-500 max-w-2xl mx-auto text-lg">
+                2020년부터 2024년까지의 경찰청 통계를 분석한 결과, 10대 무면허 운전 사고는 지속적인 증가 추세를 보이며 심각한 경고등을 켜고 있습니다.
+            </p>
+        </header>
+
+        <!-- Main KPI Summary -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="card p-8 border-b-4 border-red-500">
+                <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest">총 사고 건수</h3>
+                <div class="text-4xl font-black text-gray-800 mt-2">6,065건</div>
+                <p class="text-xs text-red-500 font-bold mt-2">5개년 누적 통계</p>
+            </div>
+            <div class="card p-8 border-b-4 border-orange-500">
+                <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest">총 부상자 수</h3>
+                <div class="text-4xl font-black text-gray-800 mt-2">7,788명</div>
+                <p class="text-xs text-orange-500 font-bold mt-2">연평균 약 1,557명</p>
+            </div>
+            <div class="card p-8 border-b-4 border-gray-800">
+                <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest">총 사망자 수</h3>
+                <div class="text-4xl font-black text-gray-800 mt-2">74명</div>
+                <p class="text-xs text-gray-500 font-bold mt-2">소중한 생명의 손실</p>
+            </div>
+        </section>
+
+        <!-- Chart Section 1: Annual Trends -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="card p-6 space-y-6">
+                <div class="flex justify-between items-center border-b pb-4">
+                    <h2 class="text-xl font-bold text-gray-800">연도별 사고 및 부상 추이</h2>
+                    <span class="text-xs font-bold px-2 py-1 bg-gray-100 rounded text-gray-500">2020-2024</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-lg text-sm text-gray-600 leading-relaxed">
+                    <strong class="text-red-600">분석:</strong> 2022년에 1,437건의 사고와 1,768명의 부상자가 발생하며 최고치를 기록했습니다. 2020년 대비 2024년 사고 건수는 약 <strong>42.95%</strong> 증가했습니다.
+                </div>
+            </div>
+
+            <div class="card p-6 space-y-6">
+                <div class="flex justify-between items-center border-b pb-4">
+                    <h2 class="text-xl font-bold text-gray-800">연도별 사망자 현황</h2>
+                    <span class="text-xs font-bold px-2 py-1 bg-red-100 rounded text-red-600">인명 피해</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="deathChart"></canvas>
+                </div>
+                <div class="p-4 bg-red-50 rounded-lg text-sm text-red-600 leading-relaxed">
+                    <strong class="font-bold">심각성:</strong> 2024년 한 해에만 26명의 사망자가 발생하며 5년 중 가장 높은 수치를 보였습니다. 이는 사고 건수 증가와 함께 사고의 치명도 또한 높아지고 있음을 시사합니다.
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Correlation & Insights -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 card p-6 space-y-6">
+                <h2 class="text-xl font-bold text-gray-800 border-l-4 border-red-600 pl-4">사고 건수와 부상자 수의 상관관계</h2>
+                <div class="chart-container" style="height: 300px;">
+                    <canvas id="corrChart"></canvas>
+                </div>
+                <p class="text-sm text-gray-500 text-center italic">상관계수: 0.993 (매우 강력한 비례 관계)</p>
+            </div>
+            
+            <div class="card p-8 bg-gray-900 text-white space-y-6">
+                <h2 class="text-2xl font-bold italic underline decoration-red-500">데이터 핵심 요약</h2>
+                <ul class="space-y-6 text-gray-300">
+                    <li class="flex items-start gap-4">
+                        <span class="text-red-500 text-2xl font-black">01</span>
+                        <p><strong>발생 빈도 급증:</strong> 2022년 이후 연평균 1,350건 이상의 사고가 지속적으로 발생하고 있습니다.</p>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="text-red-500 text-2xl font-black">02</span>
+                        <p><strong>부상 위험성:</strong> 사고 건수와 부상자 수는 거의 완벽하게 비례(0.993)하며, 사고당 평균 1.3명의 부상자가 발생합니다.</p>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="text-red-500 text-2xl font-black">03</span>
+                        <p><strong>사망률 증가:</strong> 2021년 6명이었던 사망자가 2024년 26명으로 4배 이상 급증하여 안전대책이 시급합니다.</p>
+                    </li>
+                </ul>
+                <div class="pt-4">
+                    <button class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-colors">상세 통계 다운로드 (PDF)</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Table -->
+        <section class="card overflow-hidden">
+            <div class="p-6 border-b bg-gray-50">
+                <h2 class="text-xl font-bold text-gray-800">통계 원본 데이터</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-white border-b text-gray-400 text-xs uppercase tracking-wider">
+                            <th class="p-4 font-bold">연도</th>
+                            <th class="p-4 font-bold">사고 건수</th>
+                            <th class="p-4 font-bold">부상자 수</th>
+                            <th class="p-4 font-bold">사망자 수</th>
+                            <th class="p-4 font-bold">비고</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm text-gray-700">
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-4 font-bold">2020</td>
+                            <td class="p-4">964건</td>
+                            <td class="p-4">1,371명</td>
+                            <td class="p-4">14명</td>
+                            <td class="p-4 text-gray-400">기준 연도</td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-4 font-bold">2021</td>
+                            <td class="p-4">850건</td>
+                            <td class="p-4">1,172명</td>
+                            <td class="p-4">6명</td>
+                            <td class="p-4 text-green-600">일시적 감소</td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50 bg-red-50">
+                            <td class="p-4 font-bold">2022</td>
+                            <td class="p-4 font-bold">1,437건</td>
+                            <td class="p-4 font-bold">1,768명</td>
+                            <td class="p-4">11명</td>
+                            <td class="p-4 text-red-600 font-bold">최다 사고/부상</td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-4 font-bold">2023</td>
+                            <td class="p-4">1,436건</td>
+                            <td class="p-4">1,758명</td>
+                            <td class="p-4">17명</td>
+                            <td class="p-4">고점 유지</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 bg-red-100">
+                            <td class="p-4 font-bold">2024</td>
+                            <td class="p-4">1,378건</td>
+                            <td class="p-4">1,719명</td>
+                            <td class="p-4 font-black text-red-600">26명</td>
+                            <td class="p-4 text-red-600 font-bold">최다 사망자 발생</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center pb-10 text-gray-400 text-sm">
+            <p>© 2025 데이터 분석 리포트 - 08조 이동관 기자</p>
+            <p class="mt-1">자료 출처: 경찰청 교통사고 통계 (19세 이하 가해 운전자)</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const years = ['2020', '2021', '2022', '2023', '2024'];
+        const accidentData = [964, 850, 1437, 1436, 1378];
+        const injuryData = [1371, 1172, 1768, 1758, 1719];
+        const deathData = [14, 6, 11, 17, 26];
+
+        // Chart.js Default Font
+        Chart.defaults.font.family = "'Noto Sans KR', sans-serif";
+
+        // 1. Trend Chart
+        const trendCtx = document.getElementById('trendChart').getContext('2d');
+        new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [
+                    {
+                        label: '사고 건수',
+                        data: accidentData,
+                        borderColor: '#EF4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    },
+                    {
+                        label: '부상자 수',
+                        data: injuryData,
+                        borderColor: '#F59E0B',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: { beginAtZero: false, grid: { borderDash: [5, 5] } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // 2. Death Chart
+        const deathCtx = document.getElementById('deathChart').getContext('2d');
+        new Chart(deathCtx, {
+            type: 'bar',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: '사망자 수',
+                    data: deathData,
+                    backgroundColor: deathData.map((d, i) => i === 4 ? '#B91C1C' : '#374151'),
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true, grid: { borderDash: [5, 5] } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // 3. Correlation Chart (Scatter)
+        const corrCtx = document.getElementById('corrChart').getContext('2d');
+        new Chart(corrCtx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: '사고 건수 대비 부상자 수',
+                    data: accidentData.map((v, i) => ({ x: v, y: injuryData[i] })),
+                    backgroundColor: '#EF4444',
+                    pointRadius: 8,
+                    pointHoverRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => `사고: ${context.parsed.x}건, 부상: ${context.parsed.y}명`
+                        }
+                    }
+                },
+                scales: {
+                    x: { title: { display: true, text: '사고 건수' } },
+                    y: { title: { display: true, text: '부상자 수' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
