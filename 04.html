@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대학 학과 데이터 분석 대시보드</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .chart-container { position: relative; height: 320px; width: 100%; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <div class="min-h-screen p-4 md:p-8">
+        <!-- Header -->
+        <header class="max-w-7xl mx-auto mb-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">학과 분석 대시보드 (2024-2025)</h1>
+                    <p class="text-gray-500 mt-1 text-lg">제공된 데이터를 기반으로 한 신입생 및 재정 현황 리포트</p>
+                </div>
+                <div class="relative">
+                    <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput"
+                        placeholder="학과 검색..." 
+                        class="pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none w-full md:w-64 shadow-sm transition-all"
+                    >
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto space-y-6">
+            <!-- Statistics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="statsGrid">
+                <!-- Stats cards will be rendered by JS -->
+            </div>
+
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Competition Rate Chart -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold mb-6 text-gray-800">신입생 경쟁률 추이 (YoY)</h3>
+                    <div class="chart-container">
+                        <canvas id="competitionChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Scholarship Growth Chart -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold mb-6 text-gray-800">학과별 1인당 장학금 변화</h3>
+                    <div class="chart-container">
+                        <canvas id="scholarshipChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="p-6 border-b border-gray-50 flex justify-between items-center">
+                    <h3 class="text-lg font-bold text-gray-800">상세 데이터 분석 테이블</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-gray-50 text-gray-500 text-sm uppercase">
+                            <tr>
+                                <th class="px-6 py-4 font-semibold">학과명</th>
+                                <th class="px-6 py-4 font-semibold text-center">2025 경쟁률</th>
+                                <th class="px-6 py-4 font-semibold text-center">재학생 수</th>
+                                <th class="px-6 py-4 font-semibold text-center">장학금 증감액</th>
+                                <th class="px-6 py-4 font-semibold text-center">등록금</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTableBody" class="divide-y divide-gray-100">
+                            <!-- Table rows will be rendered by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="max-w-7xl mx-auto mt-12 mb-8 text-center text-gray-400 text-sm">
+            <p>© 2026 대학 교육 지표 분석 리포트. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // 데이터셋
+        const rawData = [
+            {
+                name: "인공지능전공",
+                univ: "부산대학교",
+                comp2024: 7.9,
+                comp2025: 7.5,
+                students2024: 113,
+                students2025: 154,
+                quota2024: 68,
+                quota2025: 60,
+                scholarship2024: 3115826,
+                scholarship2025: 4129778,
+                tuition: 4728000
+            },
+            {
+                name: "컴퓨터공학전공",
+                univ: "부산대학교",
+                comp2024: 8.8,
+                comp2025: 7.6,
+                students2024: 153,
+                students2025: 198,
+                quota2024: 80,
+                quota2025: 74,
+                scholarship2024: 3611475,
+                scholarship2025: 4257091,
+                tuition: 4728000
+            }
+        ];
+
+        let compChart, scholarChart;
+
+        function init() {
+            renderStats();
+            renderTable(rawData);
+            renderCharts(rawData);
+            lucide.createIcons();
+            
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                const filtered = rawData.filter(d => d.name.toLowerCase().includes(term));
+                renderTable(filtered);
+                updateCharts(filtered);
+            });
+        }
+
+        function createStatCard(title, value, change, icon, suffix) {
+            const isPositive = change >= 0;
+            return `
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start">
+                        <div class="p-2 bg-blue-50 rounded-lg text-blue-600">
+                            <i data-lucide="${icon}" class="w-6 h-6"></i>
+                        </div>
+                        <span class="flex items-center text-sm font-medium ${isPositive ? 'text-green-600' : 'text-red-600'}">
+                            <i data-lucide="${isPositive ? 'arrow-up-right' : 'arrow-down-right'}" class="w-4 h-4 mr-1"></i>
+                            ${Math.abs(change)}%
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-sm text-gray-500 font-medium">${title}</p>
+                        <h3 class="text-2xl font-bold text-gray-900 mt-1">${value.toLocaleString()}${suffix}</h3>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderStats() {
+            const grid = document.getElementById('statsGrid');
+            grid.innerHTML = 
+                createStatCard("평균 신입생 경쟁률", 7.55, -10.2, "trending-up", ":1") +
+                createStatCard("총 재학생 수 (2025)", 352, 32.3, "users", "명") +
+                createStatCard("평균 장학금 (2025)", 4193434, 24.7, "dollar-sign", "원") +
+                createStatCard("입학 정원 변화", 134, -9.4, "graduation-cap", "명");
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('dataTableBody');
+            tbody.innerHTML = data.map(item => `
+                <tr class="hover:bg-blue-50/30 transition-colors text-sm md:text-base">
+                    <td class="px-6 py-4">
+                        <div class="font-bold text-gray-900">${item.name}</div>
+                        <div class="text-xs text-gray-400">${item.univ}</div>
+                    </td>
+                    <td class="px-6 py-4 text-center font-medium">${item.comp2025}:1</td>
+                    <td class="px-6 py-4 text-center">
+                        <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-bold">
+                            ${item.students2025}명
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-center text-green-600 font-bold">
+                        +${(item.scholarship2025 - item.scholarship2024).toLocaleString()}원
+                    </td>
+                    <td class="px-6 py-4 text-center text-gray-500 font-medium">
+                        ${item.tuition.toLocaleString()}원
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderCharts(data) {
+            // Competition Chart
+            const ctx1 = document.getElementById('competitionChart').getContext('2d');
+            compChart = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: data.map(d => d.name),
+                    datasets: [
+                        { label: '2024 경쟁률', data: data.map(d => d.comp2024), backgroundColor: '#cbd5e1', borderRadius: 6 },
+                        { label: '2025 경쟁률', data: data.map(d => d.comp2025), backgroundColor: '#3b82f6', borderRadius: 6 }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+
+            // Scholarship Chart
+            const ctx2 = document.getElementById('scholarshipChart').getContext('2d');
+            scholarChart = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: data.map(d => d.name),
+                    datasets: [
+                        { label: '2024 장학금', data: data.map(d => d.scholarship2024), borderColor: '#94a3b8', tension: 0.3, fill: false },
+                        { label: '2025 장학금', data: data.map(d => d.scholarship2025), borderColor: '#10b981', tension: 0.3, fill: false }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+        }
+
+        function updateCharts(data) {
+            compChart.data.labels = data.map(d => d.name);
+            compChart.data.datasets[0].data = data.map(d => d.comp2024);
+            compChart.data.datasets[1].data = data.map(d => d.comp2025);
+            compChart.update();
+
+            scholarChart.data.labels = data.map(d => d.name);
+            scholarChart.data.datasets[0].data = data.map(d => d.scholarship2024);
+            scholarChart.data.datasets[1].data = data.map(d => d.scholarship2025);
+            scholarChart.update();
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
