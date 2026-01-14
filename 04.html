@@ -10,17 +10,64 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Font Awesome (내비게이션 아이콘용) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .chart-container { position: relative; height: 320px; width: 100%; }
+
+        /* Floating Navigation Buttons - Top Left */
+        .floating-nav {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            width: 44px;
+            height: 44px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #4b5563;
+            text-decoration: none;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-btn:hover { 
+            background: #3b82f6;
+            color: white;
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
 
+    <!-- Floating Navigation (Top Left) -->
+    <div class="floating-nav">
+        <!-- 홈으로 가기 버튼 -->
+        <a href="portfolio_landing.html" class="nav-btn" title="홈으로 이동">
+            <i class="fa-solid fa-house text-lg"></i>
+        </a>
+        <!-- 상단으로 이동 버튼 -->
+        <div class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="상단으로 이동">
+            <i class="fa-solid fa-arrow-up text-lg"></i>
+        </div>
+    </div>
+
     <div class="min-h-screen p-4 md:p-8">
         <!-- Header -->
-        <header class="max-w-7xl mx-auto mb-8">
+        <header class="max-w-7xl mx-auto mb-8 pl-16 md:pl-0">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">학과 분석 대시보드 (2024-2025)</h1>
