@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이동관 | 빅데이터 분석 포트폴리오</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;800&display=swap');
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: #38bdf8;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            background: rgba(30, 41, 59, 0.9);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
+        }
+
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        .stagger-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-img-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+        }
+
+        .profile-img-container::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            z-index: -1;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="hero-bg"></div>
+
+    <!-- Header Section -->
+    <header class="min-h-screen flex flex-col justify-center items-center text-center px-4">
+        <div class="stagger-in" style="animation-delay: 0.1s">
+            <!-- Profile Info Added -->
+            <div class="profile-img-container">
+                <div class="w-full h-full rounded-full bg-slate-800 flex items-center justify-center border-2 border-slate-700 overflow-hidden">
+                    <i class="fa-solid fa-user text-5xl text-slate-500"></i>
+                </div>
+            </div>
+            
+            <span class="inline-block px-4 py-1.5 mb-4 text-sm font-semibold tracking-wider uppercase bg-blue-500/10 text-blue-400 rounded-full border border-blue-500/20">
+                Yangjeong High School
+            </span>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6">
+                <span class="text-white">이동관</span> <span class="gradient-text">Portfolio</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
+                안녕하세요, <strong>양정고등학교 이동관</strong>입니다.<br>
+                데이터를 통해 사회 현상을 분석하고 유의미한 가치를 찾아내는 과정에 매료되어<br>
+                '빅데이터 분석' 교과를 통해 습득한 통찰을 이 포트폴리오에 담았습니다.
+            </p>
+            
+            <div class="flex gap-4 justify-center">
+                <div class="flex items-center gap-2 text-slate-400 text-sm bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700">
+                    <i class="fa-solid fa-envelope"></i> Contact Me
+                </div>
+                <div class="flex items-center gap-2 text-slate-400 text-sm bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700">
+                    <i class="fa-solid fa-graduation-cap"></i> Yangjeong HS
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 scroll-indicator">
+            <i class="fa-solid fa-chevron-down text-slate-500 text-2xl"></i>
+        </div>
+    </header>
+
+    <!-- Project Grid Section -->
+    <main id="projects" class="max-w-7xl mx-auto px-6 pb-32">
+        <div class="mb-16 text-center">
+            <h2 class="text-3xl font-bold mb-4">Core Projects</h2>
+            <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Project 1: Kickboard -->
+            <a href="01.html" class="glass-card rounded-3xl p-8 group stagger-in" style="animation-delay: 0.2s">
+                <div class="w-14 h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-scooter text-blue-400 text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">킥보드 교통사고 분석</h3>
+                <p class="text-slate-400 mb-6 line-clamp-2">마이크로 모빌리티의 증가에 따른 교통사고 패턴과 위험 요소를 데이터로 시각화했습니다.</p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#Python</span>
+                    <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#공공데이터</span>
+                </div>
+                <span class="text-blue-400 font-semibold inline-flex items-center group-hover:translate-x-2 transition-transform">
+                    View Project <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </span>
+            </a>
+
+            <!-- Project 2: Global Warming -->
+            <a href="02.html" class="glass-card rounded-3xl p-8 group stagger-in" style="animation-delay: 0.3s">
+                <div class="w-14 h-14 bg-red-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-temperature-high text-red-400 text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">지구 온난화 심화 분석</h3>
+                <p class="text-slate-400 mb-6 line-clamp-2">지난 수십 년간의 기온 변화 데이터를 분석하여 기후 위기의 심각성을 정량적으로 분석했습니다.</p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#기후데이터</span>
+                    <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#시계열분석</span>
+                </div>
+                <span class="text-red-400 font-semibold inline-flex items-center group-hover:translate-x-2 transition-transform">
+                    View Project <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </span>
+            </a>
+
+            <!-- Project 4: University Admission -->
+            <a href="04.html" class="glass-card rounded-3xl p-8 group stagger-in" style="animation-delay: 0.4s">
+                <div class="w-14 h-14 bg-emerald-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-graduation-cap text-emerald-400 text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">나의 진학 데이터 분석</h3>
+                <p class="text-slate-400 mb-6 line-clamp-2">개인별 맞춤형 진학 전략 수립을 위해 과거 입시 데이터와 성적 추이를 교차 분석했습니다.</p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#개인프로젝트</span>
+                    <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#예측모델</span>
+                </div>
+                <span class="text-emerald-400 font-semibold inline-flex items-center group-hover:translate-x-2 transition-transform">
+                    View Project <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </span>
+            </a>
+
+            <!-- Project 3: Cyber Violence -->
+            <a href="03.html" class="glass-card rounded-3xl p-8 group stagger-in" style="animation-delay: 0.5s">
+                <div class="w-14 h-14 bg-amber-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-shield-virus text-amber-400 text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">사이버 폭력 실태 분석</h3>
+                <p class="text-slate-400 mb-6 line-clamp-2">청소년 사이버 폭력의 유형과 발생 빈도를 데이터로 분석하여 예방 대책을 제시한 조별 과제입니다.</p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#조별과제</span>
+                    <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#사회분석</span>
+                </div>
+                <span class="text-amber-400 font-semibold inline-flex items-center group-hover:translate-x-2 transition-transform">
+                    View Project <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </span>
+            </a>
+
+            <!-- Project 5: AI Ethics YouTube -->
+            <a href="05.html" class="glass-card rounded-3xl p-8 group stagger-in" style="animation-delay: 0.6s">
+                <div class="w-14 h-14 bg-purple-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-brands fa-youtube text-purple-400 text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">AI 윤리 유튜브 분석</h3>
+                <p class="text-slate-400 mb-6 line-clamp-2">유튜브 내 AI 윤리 관련 콘텐츠의 댓글과 반응을 크롤링하여 대중의 인식을 분석했습니다.</p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#NLP</span>
+                    <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#크롤링</span>
+                </div>
+                <span class="text-purple-400 font-semibold inline-flex items-center group-hover:translate-x-2 transition-transform">
+                    View Project <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </span>
+            </a>
+
+             <!-- Project Extras: Alarmi -->
+             <div class="glass-card rounded-3xl p-8 group stagger-in border-dashed" style="animation-delay: 0.7s">
+                <div class="w-14 h-14 bg-slate-500/20 rounded-2xl flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-bell text-slate-400 text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">알리미 데이터 분석</h3>
+                <p class="text-slate-400 mb-6">사용자 알림 데이터 로그 분석을 통해 서비스 최적화 시간을 도출했습니다.</p>
+                <div class="text-slate-500 text-sm italic">
+                    (데이터 분석 과정 이수 완료)
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-12 text-center text-slate-500 text-sm">
+        <p>Yangjeong High School | 이동관 Portfolio</p>
+        <p class="mt-2 opacity-50">© 2024 Big Data Analysis Portfolio. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
