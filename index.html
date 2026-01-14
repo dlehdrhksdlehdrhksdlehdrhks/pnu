@@ -71,19 +71,35 @@
 
         .profile-img-container {
             position: relative;
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             margin: 0 auto 2rem;
         }
 
         .profile-img-container::after {
             content: '';
             position: absolute;
-            inset: -5px;
+            inset: -8px;
             border-radius: 50%;
             background: linear-gradient(135deg, #38bdf8, #818cf8);
             z-index: -1;
-            opacity: 0.5;
+            opacity: 0.6;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.05); opacity: 0.3; }
+            100% { transform: scale(1); opacity: 0.6; }
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #0f172a;
+            background-color: #1e293b;
         }
     </style>
 </head>
@@ -93,10 +109,16 @@
     <!-- Header Section -->
     <header class="min-h-screen flex flex-col justify-center items-center text-center px-4">
         <div class="stagger-in" style="animation-delay: 0.1s">
-            <!-- Profile Info Added -->
+            
+            <!-- 프로필 이미지 섹션 -->
             <div class="profile-img-container">
-                <div class="w-full h-full rounded-full bg-slate-800 flex items-center justify-center border-2 border-slate-700 overflow-hidden">
-                    <i class="fa-solid fa-user text-5xl text-slate-500"></i>
+                <div class="w-full h-full rounded-full overflow-hidden border-4 border-slate-900 bg-slate-800 flex items-center justify-center">
+                    <!-- 업로드하신 이미지 파일명 적용 -->
+                    <img src="kimhayoon.jpg" alt="이동관 프로필" class="profile-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <!-- 이미지 로드 실패 시 나타나는 기본 아이콘 -->
+                    <div class="hidden w-full h-full items-center justify-center text-slate-500">
+                        <i class="fa-solid fa-user text-5xl"></i>
+                    </div>
                 </div>
             </div>
             
@@ -130,18 +152,34 @@
     <!-- Project Grid Section -->
     <main id="projects" class="max-w-7xl mx-auto px-6 pb-32">
         <div class="mb-16 text-center">
-            <h2 class="text-3xl font-bold mb-4">Core Projects</h2>
+            <h2 class="text-3xl font-bold mb-4 text-white">Core Projects</h2>
             <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
+            <!-- NEW Project: K-Pop Demon Hunters -->
+            <a href="kpop_demon_hunters.html" class="glass-card rounded-3xl p-8 group stagger-in border-blue-500/30" style="animation-delay: 0.15s">
+                <div class="w-14 h-14 bg-pink-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-music text-pink-400 text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">K-콘텐츠 성공 공식 분석</h3>
+                <p class="text-slate-400 mb-6 line-clamp-2">&lt;K팝 데몬 헌터스&gt; 열풍을 통해 본 글로벌 문화 자본과 한국적 정체성의 충돌을 분석했습니다.</p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="text-xs px-2 py-1 rounded bg-blue-500/20 text-blue-300">#문화데이터</span>
+                    <span class="text-xs px-2 py-1 rounded bg-blue-500/20 text-blue-300">#트렌드분석</span>
+                </div>
+                <span class="text-pink-400 font-semibold inline-flex items-center group-hover:translate-x-2 transition-transform">
+                    View Analysis <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </span>
+            </a>
+
             <!-- Project 1: Kickboard -->
             <a href="01.html" class="glass-card rounded-3xl p-8 group stagger-in" style="animation-delay: 0.2s">
                 <div class="w-14 h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-scooter text-blue-400 text-2xl"></i>
                 </div>
-                <h3 class="text-2xl font-bold mb-3">킥보드 교통사고 분석</h3>
+                <h3 class="text-2xl font-bold mb-3 text-white">킥보드 교통사고 분석</h3>
                 <p class="text-slate-400 mb-6 line-clamp-2">마이크로 모빌리티의 증가에 따른 교통사고 패턴과 위험 요소를 데이터로 시각화했습니다.</p>
                 <div class="flex flex-wrap gap-2 mb-6">
                     <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#Python</span>
@@ -157,7 +195,7 @@
                 <div class="w-14 h-14 bg-red-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-temperature-high text-red-400 text-2xl"></i>
                 </div>
-                <h3 class="text-2xl font-bold mb-3">지구 온난화 심화 분석</h3>
+                <h3 class="text-2xl font-bold mb-3 text-white">지구 온난화 심화 분석</h3>
                 <p class="text-slate-400 mb-6 line-clamp-2">지난 수십 년간의 기온 변화 데이터를 분석하여 기후 위기의 심각성을 정량적으로 분석했습니다.</p>
                 <div class="flex flex-wrap gap-2 mb-6">
                     <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#기후데이터</span>
@@ -173,7 +211,7 @@
                 <div class="w-14 h-14 bg-emerald-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-graduation-cap text-emerald-400 text-2xl"></i>
                 </div>
-                <h3 class="text-2xl font-bold mb-3">나의 진학 데이터 분석</h3>
+                <h3 class="text-2xl font-bold mb-3 text-white">나의 진학 데이터 분석</h3>
                 <p class="text-slate-400 mb-6 line-clamp-2">개인별 맞춤형 진학 전략 수립을 위해 과거 입시 데이터와 성적 추이를 교차 분석했습니다.</p>
                 <div class="flex flex-wrap gap-2 mb-6">
                     <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#개인프로젝트</span>
@@ -189,7 +227,7 @@
                 <div class="w-14 h-14 bg-amber-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-shield-virus text-amber-400 text-2xl"></i>
                 </div>
-                <h3 class="text-2xl font-bold mb-3">사이버 폭력 실태 분석</h3>
+                <h3 class="text-2xl font-bold mb-3 text-white">사이버 폭력 실태 분석</h3>
                 <p class="text-slate-400 mb-6 line-clamp-2">청소년 사이버 폭력의 유형과 발생 빈도를 데이터로 분석하여 예방 대책을 제시한 조별 과제입니다.</p>
                 <div class="flex flex-wrap gap-2 mb-6">
                     <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#조별과제</span>
@@ -205,7 +243,7 @@
                 <div class="w-14 h-14 bg-purple-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <i class="fa-brands fa-youtube text-purple-400 text-2xl"></i>
                 </div>
-                <h3 class="text-2xl font-bold mb-3">AI 윤리 유튜브 분석</h3>
+                <h3 class="text-2xl font-bold mb-3 text-white">AI 윤리 유튜브 분석</h3>
                 <p class="text-slate-400 mb-6 line-clamp-2">유튜브 내 AI 윤리 관련 콘텐츠의 댓글과 반응을 크롤링하여 대중의 인식을 분석했습니다.</p>
                 <div class="flex flex-wrap gap-2 mb-6">
                     <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300">#NLP</span>
@@ -215,18 +253,6 @@
                     View Project <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
                 </span>
             </a>
-
-             <!-- Project Extras: Alarmi -->
-             <div class="glass-card rounded-3xl p-8 group stagger-in border-dashed" style="animation-delay: 0.7s">
-                <div class="w-14 h-14 bg-slate-500/20 rounded-2xl flex items-center justify-center mb-6">
-                    <i class="fa-solid fa-bell text-slate-400 text-2xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-3">알리미 데이터 분석</h3>
-                <p class="text-slate-400 mb-6">사용자 알림 데이터 로그 분석을 통해 서비스 최적화 시간을 도출했습니다.</p>
-                <div class="text-slate-500 text-sm italic">
-                    (데이터 분석 과정 이수 완료)
-                </div>
-            </div>
 
         </div>
     </main>
