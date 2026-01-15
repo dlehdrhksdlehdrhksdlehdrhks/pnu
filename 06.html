@@ -7,169 +7,241 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&display=swap');
-        body { font-family: 'Pretendard', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
-        .glass-card { background: rgba(255, 255, 255, 1); border: 1px solid #e2e8f0; border-radius: 2rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        body { font-family: 'Pretendard', sans-serif; background-color: #f1f5f9; scroll-behavior: smooth; }
+        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border: 1px solid rgba(226, 232, 240, 0.8); }
         .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-content.active { display: block; animation: slideUp 0.4s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .nav-active { color: #2563eb; background: #eff6ff; border-radius: 12px; font-weight: 700; }
+        .badge-red { background: #fee2e2; color: #dc2626; }
         .badge-blue { background: #dbeafe; color: #2563eb; }
-        .keyword-chip { background: #f1f5f9; border: 1px solid #e2e8f0; padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: #475569; }
-        .sidebar-case { background: #fdf2f2; border-left: 4px solid #ef4444; }
+        .badge-orange { background: #ffedd5; color: #ea580c; }
+        .keyword-chip { background: #f8fafc; border: 1px solid #e2e8f0; padding: 4px 10px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; color: #475569; }
     </style>
 </head>
 <body class="text-slate-800">
 
-    <!-- 상단 내비게이션 -->
-    <a href="index.html" class="fixed top-6 left-6 z-50 flex items-center gap-2 bg-white px-5 py-2.5 rounded-2xl shadow-lg hover:shadow-xl transition-all border border-slate-200 group">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span class="font-bold text-sm text-slate-700">HOME</span>
+    <!-- 상단 홈 내비게이션 -->
+    <a href="index.html" class="fixed top-6 left-6 z-50 flex items-center gap-2 bg-white px-5 py-2.5 rounded-2xl shadow-xl hover:shadow-2xl transition-all border border-slate-200 group">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="font-bold text-sm">HOME</span>
     </a>
 
     <!-- 히어로 섹션 -->
-    <header class="pt-32 pb-12 px-6 text-center">
-        <div class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-blue-600 bg-blue-50 rounded-full">DATA-DRIVEN REPORT</div>
-        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 leading-tight">
-            생성형 AI와 <span class="text-blue-600">창작의 경계</span>
+    <header class="pt-32 pb-16 px-6 text-center">
+        <div class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-blue-600 bg-blue-50 rounded-full uppercase">Report: The Social Impact of Generative AI</div>
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-slate-900 leading-tight">
+            기술의 진보와 <span class="text-blue-600">사회적 합의</span>
         </h1>
-        <p class="text-lg text-slate-500 max-w-3xl mx-auto leading-relaxed">
-            업로드된 댓글 빈도수 및 유튜브 분석 자료를 토대로 <br>법적 쟁점과 창작 주체에 대한 대중의 인식을 정밀하게 재구성했습니다.
+        <p class="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+            보안, 저작권, 오용 문제에 관한 전문 데이터 및 대중 여론 분석.<br>실제 댓글 빈도수와 창작 현장의 목소리를 기반으로 시사점을 도출했습니다.
         </p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 pb-24">
+    <main class="max-w-7xl mx-auto px-6 pb-32">
         
-        <!-- 탭 메뉴 -->
-        <nav class="flex justify-center gap-2 mb-12 p-2 bg-white rounded-2xl border border-slate-200 sticky top-6 z-40 shadow-sm">
-            <button onclick="showTab('copyright')" class="tab-btn px-6 py-3 nav-active transition-all font-medium" id="btn-copyright">저작권 및 창작 주체 분석</button>
-            <button onclick="showTab('security')" class="tab-btn px-6 py-3 text-slate-500 hover:bg-slate-50 transition-all font-medium" id="btn-security">보안 및 기타 이슈</button>
+        <!-- 고정형 탭 내비게이션 -->
+        <nav class="flex flex-wrap justify-center gap-2 mb-16 p-2 bg-white/50 backdrop-blur rounded-2xl border border-slate-200 sticky top-6 z-40">
+            <button onclick="showTab('security')" class="tab-btn px-6 py-3 text-slate-600 hover:bg-white transition-all font-medium" id="btn-security">1. 보안 실태 및 사생활</button>
+            <button onclick="showTab('copyright')" class="tab-btn px-6 py-3 text-slate-600 hover:bg-white transition-all font-medium" id="btn-copyright">2. 생성형 AI와 저작권</button>
+            <button onclick="showTab('misuse')" class="tab-btn px-6 py-3 text-slate-600 hover:bg-white transition-all font-medium" id="btn-misuse">3. 합성 기술의 위협</button>
         </nav>
 
-        <!-- 섹션: 생성형 AI와 저작권 (심화) -->
-        <div id="copyright" class="tab-content active">
-            <div class="grid lg:grid-cols-12 gap-8">
-                
-                <!-- 왼쪽: 메인 분석 표 -->
-                <div class="lg:col-span-8">
-                    <div class="glass-card p-8 md:p-10 h-full">
-                        <div class="flex items-center gap-3 mb-8">
-                            <span class="badge-blue px-3 py-1 rounded-lg font-bold text-[10px] uppercase">Analysis Table</span>
-                            <h2 class="text-2xl font-bold text-slate-900">데이터 기반 핵심 쟁점 분석</h2>
-                        </div>
-                        
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
-                                <thead class="bg-slate-50">
-                                    <tr>
-                                        <th class="p-4 font-bold text-slate-700 border-b border-slate-200 text-sm">분석 영역</th>
-                                        <th class="p-4 font-bold text-slate-700 border-b border-slate-200 text-sm">관련 키워드</th>
-                                        <th class="p-4 font-bold text-slate-700 border-b border-slate-200 text-sm">대중 인식 및 분석 결과</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-sm">
-                                    <!-- 법적 쟁점 -->
-                                    <tr class="hover:bg-slate-50/50 transition-colors">
-                                        <td class="p-4 border-b border-slate-100 font-bold text-blue-700">법적 쟁점</td>
-                                        <td class="p-4 border-b border-slate-100">
-                                            <div class="flex flex-wrap gap-1">
-                                                <span class="keyword-chip">저작권(66)</span>
-                                                <span class="keyword-chip">인정(22)</span>
-                                                <span class="keyword-chip">판결(1)</span>
-                                            </div>
-                                        </td>
-                                        <td class="p-4 border-b border-slate-100 text-slate-600 leading-relaxed">
-                                            현행법상 저작물은 <b>'인간의 사상과 감정'</b>을 표현해야 함. 대중은 AI 단독 결과물에 저작권을 주는 것에 부정적이나, 미국 등의 최신 <span class="text-blue-600 font-semibold">판결 흐름</span>과 국내 <span class="text-blue-600 font-semibold">제도 마련</span> 여부에 높은 관심을 보임.
-                                        </td>
-                                    </tr>
-                                    <!-- 창작 주체 -->
-                                    <tr class="hover:bg-slate-50/50 transition-colors">
-                                        <td class="p-4 border-b border-slate-100 font-bold text-indigo-700">창작 주체</td>
-                                        <td class="p-4 border-b border-slate-100">
-                                            <div class="flex flex-wrap gap-1">
-                                                <span class="keyword-chip">사람(14)</span>
-                                                <span class="keyword-chip">인간(10)</span>
-                                                <span class="keyword-chip">프롬프트(7)</span>
-                                            </div>
-                                        </td>
-                                        <td class="p-4 border-b border-slate-100 text-slate-600 leading-relaxed">
-                                            단순 <b>'딸깍(일회성 입력)'</b> 결과물은 예술이 아니라는 인식이 강함. 하지만 <b>수백 번의 프롬프트 정교화</b>와 생성 후 <b>인간의 직접적인 리터칭/수정</b> 작업이 가해진다면, 이는 붓이나 카메라처럼 AI를 도구로 사용한 <span class="text-indigo-600 font-semibold">'인간의 예술'</span>로 인정받을 수 있다는 시각이 대두됨.
-                                        </td>
-                                    </tr>
-                                    <!-- 활용 및 갈등 -->
-                                    <tr class="hover:bg-slate-50/50 transition-colors">
-                                        <td class="p-4 border-b border-slate-100 font-bold text-purple-700">활용 분야</td>
-                                        <td class="p-4 border-b border-slate-100">
-                                            <div class="flex flex-wrap gap-1">
-                                                <span class="keyword-chip">그림(23)</span>
-                                                <span class="keyword-chip">음악(16)</span>
-                                                <span class="keyword-chip">긴빠이(1)</span>
-                                            </div>
-                                        </td>
-                                        <td class="p-4 border-b border-slate-100 text-slate-600 leading-relaxed">
-                                            시각/청각 예술 분야에서 <b>'학습 데이터의 윤리성'</b> 문제(무단 학습)가 가장 크게 대두됨. 대중은 AI가 창작자를 대체하기보다, 배경 작업이나 믹싱 등 <span class="text-purple-600 font-semibold">단순 업무 효율 도구</span>로 쓰이는 것을 선호함.
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+        <!-- 섹션 1: AI 스피커 보안 실태 -->
+        <div id="security" class="tab-content">
+            <!-- (생략: 기존 보안 섹션 유지) -->
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 glass-card p-10 rounded-[2.5rem] shadow-sm">
+                    <div class="flex items-center gap-3 mb-8">
+                        <span class="badge-red px-3 py-1 rounded-lg font-bold text-xs">VULNERABILITY</span>
+                        <h2 class="text-3xl font-extrabold text-slate-900">구조적 '보안 구멍' 분석</h2>
+                    </div>
+                    <p class="text-slate-600 mb-8 leading-relaxed">
+                        고려대학교 소프트웨어 보안 연구소 점검 결과, 국내 제품군에서 심각한 취약점이 발견되었습니다. 해커가 스피커의 신뢰성 있는 목소리를 변조하여 개인정보 및 금융정보를 탈취하는 '사회적 피싱'의 위험이 실재합니다.
+                    </p>
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b-2 border-slate-100 uppercase text-[10px] tracking-widest text-slate-400">
+                                    <th class="py-4">구분</th>
+                                    <th class="py-4">제조사/제품군</th>
+                                    <th class="py-4 text-right">발견된 취약점 수</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-700">
+                                <tr class="border-b border-slate-50">
+                                    <td class="py-5 font-bold">국내 주력 제품</td>
+                                    <td class="py-5">A사 (국내 보급형)</td>
+                                    <td class="py-5 text-right text-red-600 font-extrabold text-2xl">1,280여 개</td>
+                                </tr>
+                                <tr class="border-b border-slate-50">
+                                    <td class="py-5 font-bold">국내 주력 제품</td>
+                                    <td class="py-5">B사 (국내 보급형)</td>
+                                    <td class="py-5 text-right text-red-500 font-bold text-xl">320여 개</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
-                <!-- 오른쪽: 부가 설명 (사례 및 요약) -->
-                <div class="lg:col-span-4 space-y-6">
-                    <!-- 원숭이 셀카 사례 (부가 설명) -->
-                    <div class="glass-card p-6 sidebar-case">
-                        <div class="flex items-center gap-2 mb-3 text-red-600 font-bold text-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
-                            참고 판례: 원숭이 셀카 (2011)
-                        </div>
-                        <p class="text-[13px] text-slate-600 leading-relaxed">
-                            인도네시아 원숭이 '나루토'가 찍은 사진에 대해 미국 법원은 <b>"인간이 아닌 존재가 만든 작품에는 저작권을 줄 수 없다"</b>고 판결했습니다. 이 판례는 오늘날 AI가 스스로 만든 결과물에 왜 저작권을 줄 수 없는지에 대한 법적 토대가 되었습니다.
-                        </p>
+                <div class="glass-card p-10 rounded-[2.5rem] bg-slate-900 text-white shadow-xl">
+                    <h3 class="text-xl font-bold mb-6 text-red-400">시민 여론 리서치</h3>
+                    <div class="flex flex-wrap gap-3 mb-8">
+                        <span class="text-3xl font-black">도청기</span>
+                        <span class="text-2xl font-bold text-red-500">불안</span>
+                        <span class="text-xl font-bold">사생활침해</span>
                     </div>
-
-                    <!-- 요약 대시보드 -->
-                    <div class="glass-card p-6 bg-slate-900 text-white">
-                        <h4 class="font-bold text-sm mb-4 text-blue-400">데이터 시각 요약</h4>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between text-[11px] mb-1.5">
-                                    <span class="text-slate-400">저작권 권리 인정 관심도</span>
-                                    <span class="font-bold">66%</span>
-                                </div>
-                                <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
-                                    <div class="bg-blue-500 h-full w-[66%]"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-[11px] mb-1.5">
-                                    <span class="text-slate-400">인간 노력 중심적 예술관</span>
-                                    <span class="font-bold">82%</span>
-                                </div>
-                                <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
-                                    <div class="bg-indigo-400 h-full w-[82%]"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="mt-6 text-[11px] text-slate-500 italic border-t border-white/5 pt-4">
-                            * 댓글 빈도수 1위 '저작권' 키워드를 바탕으로 한 분석 결과입니다.
-                        </p>
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10 italic text-sm text-slate-300">
+                        "침실에 둔 기기가 내 모든 은밀한 대화를 듣고 분석한다니요. 편리함보다 공포가 앞섭니다."
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 섹션: 보안 이슈 (기본 유지) -->
-        <div id="security" class="tab-content">
-            <div class="glass-card p-12 text-center">
-                <div class="max-w-md mx-auto">
-                    <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <!-- 섹션 2: 생성형 AI와 저작권 (데이터 기반 보강 버전) -->
+        <div id="copyright" class="tab-content active">
+            <div class="grid lg:grid-cols-12 gap-8">
+                <!-- 왼쪽: 정밀 키워드 분석 테이블 -->
+                <div class="lg:col-span-8 glass-card p-10 rounded-[2.5rem]">
+                    <div class="flex items-center gap-3 mb-8">
+                        <span class="badge-blue px-3 py-1 rounded-lg font-bold text-xs">QUALITATIVE DATA ANALYSIS</span>
+                        <h2 class="text-3xl font-extrabold text-slate-900">영역별 핵심 키워드 및 대중 인식 분석</h2>
                     </div>
-                    <h3 class="text-xl font-bold mb-2 text-slate-800">보안 실태 및 기타 이슈</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">
-                        고려대학교 소프트웨어 보안 연구소 데이터에 따르면 국내 AI 기기의 취약점은 외산 대비 평균 4배 이상 높게 나타났습니다. (자세한 리포트는 이전 섹션 참조)
-                    </p>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th class="p-5 rounded-tl-2xl font-bold text-slate-800 border-b border-slate-200 w-1/4 text-sm">분석 영역</th>
+                                    <th class="p-5 font-bold text-slate-800 border-b border-slate-200 w-1/3 text-sm">핵심 키워드 (빈도수)</th>
+                                    <th class="p-5 rounded-tr-2xl font-bold text-slate-800 border-b border-slate-200 text-sm">분석 결과 및 대중 반응</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm">
+                                <tr class="hover:bg-slate-50/50 transition-colors">
+                                    <td class="p-5 border-b border-slate-100 font-bold text-blue-700">법적 쟁점</td>
+                                    <td class="p-5 border-b border-slate-100">
+                                        <div class="flex flex-wrap gap-1.5">
+                                            <span class="keyword-chip">저작권(66)</span>
+                                            <span class="keyword-chip">인정(22)</span>
+                                            <span class="keyword-chip">침해(16)</span>
+                                            <span class="keyword-chip">판결(1)</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-5 border-b border-slate-100 text-slate-600 leading-relaxed">
+                                        <span class="font-bold text-slate-900">'원숭이 셀카'</span> 판례에서 보듯, 저작권은 '인간'의 저작물에만 한정된다는 원칙에 대중은 동의함. 다만, AI 결과물을 100% 무작권으로 볼지, 보조 도구로 볼지에 대한 명확한 <span class="text-blue-600">법적 기준(신청, 제도)</span>을 갈망하는 목소리가 높음.
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/50 transition-colors">
+                                    <td class="p-5 border-b border-slate-100 font-bold text-indigo-700">창작 주체</td>
+                                    <td class="p-5 border-b border-slate-100">
+                                        <div class="flex flex-wrap gap-1.5">
+                                            <span class="keyword-chip">사람/인간(24)</span>
+                                            <span class="keyword-chip">작가(7)</span>
+                                            <span class="keyword-chip">창작(16)</span>
+                                            <span class="keyword-chip">도구(6)</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-5 border-b border-slate-100 text-slate-600 leading-relaxed">
+                                        <span class="font-bold text-indigo-600">"딸깍(프롬프트 입력) 한 번으로 나온 그림은 예술이 아니다"</span>는 인식이 지배적임. 대중은 창작을 '인간의 고뇌와 노력'의 산물로 정의하며, AI는 창작 시간을 단축해 주는 <span class="bg-indigo-50 px-1 rounded font-semibold text-indigo-700">효율적 도구</span>로만 수용하려는 경향을 보임.
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/50 transition-colors">
+                                    <td class="p-5 border-b border-slate-100 font-bold text-purple-700">활용 분야</td>
+                                    <td class="p-5 border-b border-slate-100">
+                                        <div class="flex flex-wrap gap-1.5">
+                                            <span class="keyword-chip">그림/일러스트(23)</span>
+                                            <span class="keyword-chip">음악(16)</span>
+                                            <span class="keyword-chip">영상(19)</span>
+                                            <span class="keyword-chip">긴빠이(1)</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-5 border-b border-slate-100 text-slate-600 leading-relaxed">
+                                        특히 그림과 음악 분야에서 <span class="font-bold text-purple-600">'화풍 도둑질'</span>에 대한 분노가 큼. 불법 수집 데이터(단부루 등) 기반 학습에 대해 <span class="text-red-500 font-semibold">'긴빠이(도둑질)'</span>라는 강한 부정어 사용. 실무적으로는 배경 채색 등 단순 반복 작업에서의 효율성 증대를 기대함.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 추가 통찰 섹션 -->
+                    <div class="mt-8 p-6 bg-slate-50 rounded-3xl border border-slate-200">
+                        <h4 class="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                            데이터 요약 및 분석 총평
+                        </h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            제공된 댓글 빈도수 데이터에서 <strong>'저작권(66)'</strong>이 압도적 1위를 기록한 것은, 기술의 완성도보다 '데이터의 윤리적 출처'와 '권리 보호'가 대중의 최우선 가치임을 의미합니다. 특히 <strong>음악(16)</strong>과 <strong>그림(23)</strong> 키워드가 나란히 상위권에 위치하여, 해당 분야를 중심으로 분쟁이 본격화되고 있음을 알 수 있습니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 오른쪽: 시사점 및 가이드라인 제언 -->
+                <div class="lg:col-span-4 flex flex-col gap-6">
+                    <div class="glass-card p-8 rounded-[2.5rem] bg-gradient-to-br from-indigo-50 to-white border-indigo-100">
+                        <h3 class="text-xl font-bold mb-6 text-slate-900">현장 목소리: 창작 생태계</h3>
+                        <div class="space-y-4">
+                            <div class="p-5 bg-white rounded-2xl shadow-sm border border-slate-100">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                                    <h5 class="font-bold text-slate-800 text-sm">거부감의 핵심</h5>
+                                </div>
+                                <p class="text-xs text-slate-500 leading-relaxed">"수만 번의 붓질과 고뇌가 담긴 화풍을 '긴빠이' 하여 상업화하는 행위는 생존권을 위협하는 일"</p>
+                            </div>
+                            <div class="p-5 bg-white rounded-2xl shadow-sm border border-slate-100">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                                    <h5 class="font-bold text-slate-800 text-sm">수용의 조건</h5>
+                                </div>
+                                <p class="text-xs text-slate-500 leading-relaxed">"배경 채색, 가이드 작곡 등 단순 반복 작업의 <span class="text-green-600 font-bold">효율을 높이는 도구</span>로서는 인정"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-8 rounded-[2.5rem] bg-slate-900 text-white">
+                        <h3 class="text-xl font-bold mb-4 text-blue-400">맞춤형 가이드라인 제언</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                            단순한 통합 법안이 아닌, 각 예술 장르의 특수성을 반영한 세밀한 기준이 필요합니다.
+                        </p>
+                        <ul class="space-y-3 text-xs">
+                            <li class="flex items-start gap-2">
+                                <span class="text-blue-500">✔</span>
+                                <span><strong>그림/일러스트:</strong> 스타일 학습 시 원작자 수익 배분 체계 마련</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-blue-500">✔</span>
+                                <span><strong>음악/보이스:</strong> AI 커버곡 등에 대한 인격권 및 성명권 보호 강화</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-blue-500">✔</span>
+                                <span><strong>투명성 확보:</strong> AI 생성물 여부의 의무 표기제 도입</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 섹션 3: 합성 기술 위협 -->
+        <div id="misuse" class="tab-content">
+            <!-- (생략: 기존 오용 섹션 유지) -->
+            <div class="glass-card p-12 rounded-[3rem] border-orange-100 shadow-lg relative overflow-hidden">
+                <div class="relative z-10 grid lg:grid-cols-2 gap-12">
+                    <div>
+                        <div class="flex items-center gap-3 mb-8">
+                            <span class="badge-orange px-3 py-1 rounded-lg font-bold text-xs">SYNTHETIC THREAT</span>
+                            <h2 class="text-3xl font-extrabold text-slate-900">딥페이크와 진실의 붕괴</h2>
+                        </div>
+                        <p class="text-slate-600 mb-10 leading-relaxed">
+                            AI 합성 기술은 '보는 것이 믿는 것'이라는 인간의 기본적 신뢰 시스템을 위협하고 있습니다. 정치적 여론 조작 및 디지털 성범죄에 대한 제도적 안전망이 시급합니다.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-200 text-center">
+                        <h4 class="font-black text-orange-500 text-5xl tracking-tighter mb-4">Liar's Dividend</h4>
+                        <h5 class="font-bold text-xl mb-4 text-slate-800 underline">거짓말쟁이의 배당금</h5>
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            진짜 증거마저 "조작된 AI 영상이다"라고 주장하며 책임을 회피하는 인식론적 위기가 도래하고 있습니다.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -177,20 +249,25 @@
     </main>
 
     <!-- 푸터 -->
-    <footer class="bg-white py-12 border-t border-slate-200">
+    <footer class="bg-white py-16 border-t border-slate-200">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <p class="text-slate-400 text-[10px] uppercase tracking-[0.2em] font-bold mb-3">AI Issues Analysis Dashboard</p>
-            <p class="text-slate-700 font-bold text-sm">© 2025 AI SOCIAL ISSUES REPORT</p>
+            <p class="text-slate-400 text-sm mb-4">분석 데이터: (최수연)보안 보고서, 대중 여론 정밀 분석(댓글 빈도수), NotebookLM AI 저작권 보고서</p>
+            <p class="font-bold text-slate-600 tracking-widest text-xs uppercase">© 2025 AI SOCIAL ISSUES DASHBOARD</p>
         </div>
     </footer>
 
     <script>
         function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('nav-active'));
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('nav-active');
+            });
             document.getElementById(tabId).classList.add('active');
             document.getElementById('btn-' + tabId).classList.add('nav-active');
         }
+        window.onload = () => showTab('copyright'); // 보강된 섹션을 우선 보여주도록 설정
     </script>
 </body>
 </html>
