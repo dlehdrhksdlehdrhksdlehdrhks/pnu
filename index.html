@@ -106,16 +106,11 @@
 <body class="antialiased">
     <div class="hero-bg"></div>
 
-    <!-- Header Section -->
     <header class="min-h-screen flex flex-col justify-center items-center text-center px-4">
         <div class="stagger-in" style="animation-delay: 0.1s">
-            
-            <!-- 프로필 이미지 섹션 --> 
             <div class="profile-img-container">
                 <div class="w-full h-full rounded-full overflow-hidden border-4 border-slate-900 bg-slate-800 flex items-center justify-center">
-                    <!-- 업로드하신 이미지 파일명 적용 -->
                     <img src="kimhayoon.jpg" alt="이동관 프로필" class="profile-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <!-- 이미지 로드 실패 시 나타나는 기본 아이콘 -->
                     <div class="hidden w-full h-full items-center justify-center text-slate-500">
                         <i class="fa-solid fa-user text-5xl"></i>
                     </div>
@@ -149,7 +144,6 @@
         </div>
     </header>
 
-    <!-- Project Grid Section -->
     <main id="projects" class="max-w-7xl mx-auto px-6 pb-32">
         <div class="mb-16 text-center">
             <h2 class="text-3xl font-bold mb-4 text-white">Core Projects</h2>
@@ -158,7 +152,6 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <!-- NEW Project: K-Pop Demon Hunters -->
             <a href="05.html" class="glass-card rounded-3xl p-8 group stagger-in border-blue-500/30" style="animation-delay: 0.15s">
                 <div class="w-14 h-14 bg-pink-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-music text-pink-400 text-2xl"></i>
@@ -174,10 +167,9 @@
                 </span>
             </a>
 
-            <!-- Project 1: Kickboard -->
             <a href="01.html" class="glass-card rounded-3xl p-8 group stagger-in" style="animation-delay: 0.2s">
                 <div class="w-14 h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-scooter text-blue-400 text-2xl"></i>
+                    <i class="fa-solid fa-bicycle text-blue-400 text-2xl"></i>
                 </div>
                 <h3 class="text-2xl font-bold mb-3 text-white">킥보드 교통사고 분석</h3>
                 <p class="text-slate-400 mb-6 line-clamp-2">마이크로 모빌리티의 증가에 따른 교통사고 패턴과 위험 요소를 데이터로 시각화했습니다.</p>
@@ -190,7 +182,6 @@
                 </span>
             </a>
 
-            <!-- Project 2: Global Warming -->
             <a href="02.html" class="glass-card rounded-3xl p-8 group stagger-in" style="animation-delay: 0.3s">
                 <div class="w-14 h-14 bg-red-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-temperature-high text-red-400 text-2xl"></i>
@@ -206,7 +197,6 @@
                 </span>
             </a>
 
-            <!-- Project 4: University Admission -->
             <a href="04.html" class="glass-card rounded-3xl p-8 group stagger-in" style="animation-delay: 0.4s">
                 <div class="w-14 h-14 bg-emerald-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-graduation-cap text-emerald-400 text-2xl"></i>
@@ -222,7 +212,6 @@
                 </span>
             </a>
 
-            <!-- Project 3: Cyber Violence -->
             <a href="03.html" class="glass-card rounded-3xl p-8 group stagger-in" style="animation-delay: 0.5s">
                 <div class="w-14 h-14 bg-amber-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-shield-virus text-amber-400 text-2xl"></i>
@@ -238,7 +227,6 @@
                 </span>
             </a>
 
-            <!-- Project 5: AI Ethics YouTube -->
             <a href="05.html" class="glass-card rounded-3xl p-8 group stagger-in" style="animation-delay: 0.6s">
                 <div class="w-14 h-14 bg-purple-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <i class="fa-brands fa-youtube text-purple-400 text-2xl"></i>
@@ -254,10 +242,24 @@
                 </span>
             </a>
 
+            <a href="06.html" class="glass-card rounded-3xl p-8 group stagger-in border-indigo-500/30" style="animation-delay: 0.7s">
+                <div class="w-14 h-14 bg-indigo-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-scale-balanced text-indigo-400 text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">AI 윤리 사회적 쟁점 및 여론 분석</h3>
+                <p class="text-slate-400 mb-6 line-clamp-2">AI 기술 도입에 따른 사회적 갈등 사례를 수집하고, 대중의 윤리적 인식을 정량화했습니다.</p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="text-xs px-2 py-1 rounded bg-indigo-500/20 text-indigo-300">#AI윤리</span>
+                    <span class="text-xs px-2 py-1 rounded bg-indigo-500/20 text-indigo-300">#여론분석</span>
+                </div>
+                <span class="text-indigo-400 font-semibold inline-flex items-center group-hover:translate-x-2 transition-transform">
+                    View Full Analysis <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </span>
+            </a>
+
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="border-t border-slate-800 py-12 text-center text-slate-500 text-sm">
         <p>Yangjeong High School | 이동관 Portfolio</p>
         <p class="mt-2 opacity-50">© 2024 Big Data Analysis Portfolio. All rights reserved.</p>
